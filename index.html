@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Bientang Carel Josep Ansouw</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Chart.js untuk Dasbor Kompetensi -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .glass-morphism {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .dark .glass-morphism {
+            background: rgba(15, 23, 42, 0.8);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        html[lang="en"] .lang-id { display: none; }
+        html[lang="id"] .lang-en { display: none; }
+        
+        .skill-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .skill-card:hover {
+            transform: translateY(-8px);
+            cursor: pointer;
+        }
+
+        @media print {
+            .no-print { display: none; }
+            body { background: white !important; color: black !important; }
+            section { page-break-inside: avoid; }
+        }
+
+        /* Logo CJ Interaction */
+        #cj-logo {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        #cj-logo:hover {
+            filter: drop-shadow(0 0 15px rgba(59, 130, 246, 0.6));
+            transform: scale(1.15) rotate(-5deg);
+        }
+
+        /* SPA Page Transitions */
+        .page-transition {
+            animation: slideUpFade 0.6s ease-out forwards;
+        }
+
+        @keyframes slideUpFade {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { 
+            background: #3b82f6; 
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 transition-colors duration-300 dark:bg-slate-950 dark:text-slate-100">
+
+    <!-- VIEW 1: MAIN PORTFOLIO -->
+    <div id="main-view">
+        <!-- Navigasi -->
+        <nav class="fixed top-0 w-full z-50 glass-morphism no-print">
+            <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+                <div class="flex items-center gap-6">
+                    <button id="cj-logo" onclick="navigateTo('stats')" title="Buka Dasbor Statistik" class="text-2xl font-black gradient-text uppercase tracking-tighter outline-none group relative">
+                        CJ
+                    </button>
+                    <!-- Live Clock & Date -->
+                    <div id="clock-container" class="hidden lg:flex flex-col border-l border-slate-200 dark:border-slate-800 pl-6 mono">
+                        <span id="live-time" class="text-sm font-bold tracking-tighter text-blue-600 dark:text-blue-400">00:00:00</span>
+                        <span id="live-date" class="text-[10px] uppercase tracking-widest text-slate-400">Loading Date...</span>
+                    </div>
+                </div>
+
+                <div class="hidden md:flex space-x-8 font-medium">
+                    <a href="#home" class="hover:text-blue-500 transition-colors text-sm uppercase tracking-widest font-bold">
+                        <span class="lang-id">Beranda</span><span class="lang-en">Home</span>
+                    </a>
+                    <a href="#about" class="hover:text-blue-500 transition-colors text-sm uppercase tracking-widest font-bold">
+                        <span class="lang-id">Tentang</span><span class="lang-en">About</span>
+                    </a>
+                    <a href="#experience" class="hover:text-blue-500 transition-colors text-sm uppercase tracking-widest font-bold">
+                        <span class="lang-id">Pengalaman</span><span class="lang-en">Experience</span>
+                    </a>
+                    <a href="#skills" class="hover:text-blue-500 transition-colors text-sm uppercase tracking-widest font-bold">
+                        <span class="lang-id">Keahlian</span><span class="lang-en">Skills</span>
+                    </a>
+                </div>
+
+                <div class="flex items-center gap-3">
+                    <button id="lang-toggle" class="px-3 py-1 rounded-lg border border-slate-300 dark:border-slate-700 text-[10px] font-black hover:bg-slate-200 dark:hover:bg-slate-800 transition uppercase tracking-tighter">
+                        <span class="lang-id">English</span><span class="lang-en">Indonesia</span>
+                    </button>
+                    <button id="theme-toggle" class="p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-800 transition shadow-sm bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+                        <i id="theme-icon" data-lucide="moon" class="w-4 h-4"></i>
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <section id="home" class="min-h-screen flex items-center justify-center pt-24 px-6">
+            <div class="max-w-4xl text-center">
+                <div class="mb-8 inline-block p-1.5 rounded-full bg-gradient-to-tr from-blue-600 via-purple-500 to-blue-400 shadow-2xl">
+                    <div class="rounded-full overflow-hidden w-44 h-44 md:w-64 md:h-64 border-4 border-white dark:border-slate-900 bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
+                        <img 
+                            id="profile-img"
+                            src="https://i.imgur.com/Sq1ZM7D.jpeg" 
+                            alt="Bientang Carel Josep Ansouw" 
+                            class="w-full h-full object-cover object-top"
+                            onerror="this.src='https://ui-avatars.com/api/?name=Bientang+Carel&size=256&background=0D1117&color=fff'"
+                        >
+                    </div>
+                </div>
+                <h1 class="text-5xl md:text-7xl font-black mb-6 leading-tight">
+                    <span class="lang-id" id="greeting-id">Halo</span><span class="lang-en" id="greeting-en">Hello</span>, Saya 
+                    <br>
+                    <span class="gradient-text">Bientang Carel Josep Ansouw</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-slate-600 dark:text-slate-400 mb-10 max-w-3xl mx-auto font-medium leading-relaxed italic">
+                    <span class="lang-id">Mahasiswa Sains Data & Spesialis Inventaris. Membangun solusi berbasis data untuk efisiensi operasional.</span>
+                    <span class="lang-en">Data Science Student & Inventory Specialist. Building data-driven solutions for operational efficiency.</span>
+                </p>
+                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 py-4 px-10 rounded-full w-fit mx-auto shadow-xl transition-transform hover:scale-105">
+                    <span class="text-blue-600 dark:text-blue-400 text-xs md:text-sm tracking-[0.2em] uppercase font-black">Self-Built Portfolio with Custom Code</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tentang & Pendidikan -->
+        <section id="about" class="py-28 px-6 bg-white dark:bg-slate-900/40 border-y border-slate-100 dark:border-slate-800/50">
+            <div class="max-w-5xl mx-auto">
+                <h2 class="text-3xl font-bold mb-16 flex items-center gap-4">
+                    <span class="p-2 bg-blue-500 rounded-lg text-white"><i data-lucide="user"></i></span>
+                    <span class="lang-id">Profil & Pendidikan</span><span class="lang-en">Profile & Education</span>
+                </h2>
+                <div class="grid lg:grid-cols-2 gap-16 items-start">
+                    <div class="text-lg leading-relaxed text-slate-600 dark:text-slate-400 space-y-6">
+                        <p>
+                            <span class="lang-id">Saya sedang menempuh pendidikan <strong>Sains Data di Universitas Terbuka</strong> mulai Agustus 2025. Memiliki latar belakang Akuntansi yang kuat membantu saya dalam memastikan validitas data finansial dan operasional.</span>
+                            <span class="lang-en">I am pursuing <strong>Data Science at Universitas Terbuka</strong> starting August 2025. My strong Accounting background assists me in ensuring the validity of financial and operational data.</span>
+                        </p>
+                        <p>
+                            <span class="lang-id">Kombinasi studi akademik dan pengalaman bertahun-tahun di lapangan distribusi retail memberikan saya kemampuan unik untuk menerjemahkan data mentah menjadi strategi bisnis.</span>
+                            <span class="lang-en">The combination of academic studies and years of experience in retail distribution gives me the unique ability to translate raw data into business strategy.</span>
+                        </p>
+                    </div>
+                    <div class="space-y-6">
+                        <div class="p-6 rounded-3xl bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800/50 flex items-start gap-5 transition hover:shadow-xl">
+                            <div class="p-3 bg-white dark:bg-slate-800 rounded-2xl text-blue-600 shadow-sm"><i data-lucide="book-open" class="w-7 h-7"></i></div>
+                            <div>
+                                <div class="font-black text-xl mb-1 italic">Universitas Terbuka</div>
+                                <div class="text-blue-600 font-bold lang-id">S1 Sains Data (2025 - Sekarang)</div>
+                                <div class="text-blue-600 font-bold lang-en">Bachelor of Data Science (2025 - Present)</div>
+                            </div>
+                        </div>
+                        <div class="p-6 rounded-3xl bg-slate-50 dark:bg-slate-800/30 border border-slate-200 dark:border-slate-700/50 flex items-start gap-5 transition hover:shadow-xl">
+                            <div class="p-3 bg-white dark:bg-slate-900 rounded-2xl text-slate-600 shadow-sm"><i data-lucide="graduation-cap" class="w-7 h-7"></i></div>
+                            <div>
+                                <div class="font-black text-xl mb-1 italic">SMK Negeri 1 Manado</div>
+                                <div class="text-slate-500 font-bold lang-id">Akuntansi (Lulus 2020)</div>
+                                <div class="text-slate-500 font-bold lang-en">Accounting (Graduated 2020)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pengalaman Profesional -->
+        <section id="experience" class="py-28 px-6">
+            <div class="max-w-5xl mx-auto">
+                <h2 class="text-3xl font-bold mb-16 flex items-center gap-4 border-b border-slate-200 dark:border-slate-800 pb-6">
+                    <span class="p-2 bg-blue-600 rounded-lg text-white"><i data-lucide="briefcase"></i></span>
+                    <span class="lang-id">Pengalaman Profesional</span><span class="lang-en">Professional Experience</span>
+                </h2>
+                <div class="space-y-16">
+                    <!-- PT Indomarco -->
+                    <div class="relative pl-10 border-l-2 border-blue-500">
+                        <div class="absolute -left-[11px] top-0 w-5 h-5 bg-blue-500 rounded-full shadow-[0_0_10px_rgba(59,130,246,0.5)]"></div>
+                        <div class="mb-2 text-sm font-black text-blue-600 uppercase tracking-widest">2023 - Sekarang</div>
+                        <h3 class="text-2xl font-black mb-1">Reporting & Inventory Team</h3>
+                        <div class="text-slate-700 dark:text-slate-300 font-bold mb-1 italic">PT. Indomarco Prismatama (DC Indomaret Manado)</div>
+                        <div class="text-xs text-slate-400 mb-4 font-bold uppercase tracking-wider">Mapanget, Manado</div>
+                        <p class="text-slate-600 dark:text-slate-400 max-w-3xl leading-relaxed">
+                            <span class="lang-id">Mengelola validasi data stok harian, koordinasi laporan strategis antar departemen, serta optimasi sistem kontrol inventaris untuk memastikan akurasi gudang pusat.</span>
+                            <span class="lang-en">Managing daily stock data validation, coordinating strategic reports between departments, and optimizing inventory control systems to ensure central warehouse accuracy.</span>
+                        </p>
+                    </div>
+                    <!-- Admin Reporting -->
+                    <div class="relative pl-10 border-l-2 border-slate-300 dark:border-slate-700">
+                        <div class="absolute -left-[11px] top-0 w-5 h-5 bg-slate-300 dark:bg-slate-700 rounded-full"></div>
+                        <div class="mb-2 text-sm font-black text-slate-500 uppercase tracking-widest">Nov 2022 - Nov 2023</div>
+                        <h3 class="text-2xl font-black mb-1">Admin Reporting Team</h3>
+                        <div class="text-slate-700 dark:text-slate-300 font-bold mb-1 italic">PT. Indomarco Prismatama (DC Indomaret Manado)</div>
+                        <p class="text-slate-600 dark:text-slate-400 max-w-3xl leading-relaxed">
+                            <span class="lang-id">Digitalisasi dokumen operasional, menyusun laporan performa distribusi, dan memantau KPI logistik secara berkala.</span>
+                            <span class="lang-en">Digitalizing operational documents, compiling distribution performance reports, and monitoring logistics KPIs on a regular basis.</span>
+                        </p>
+                    </div>
+                    <!-- Lotte -->
+                    <div class="relative pl-10 border-l-2 border-slate-300 dark:border-slate-700">
+                        <div class="absolute -left-[11px] top-0 w-5 h-5 bg-slate-300 dark:bg-slate-700 rounded-full"></div>
+                        <div class="mb-2 text-sm font-black text-slate-500 uppercase tracking-widest">Feb 2022 - Agt 2022</div>
+                        <h3 class="text-2xl font-black mb-1">Cashier</h3>
+                        <div class="text-slate-700 dark:text-slate-300 font-bold mb-1 italic">PT. Lotte Shopping Indonesia (Lotte Grosir Manado)</div>
+                        <div class="text-xs text-slate-400 mb-4 font-bold uppercase tracking-wider">Tikala, Manado</div>
+                        <p class="text-slate-600 dark:text-slate-400 max-w-3xl leading-relaxed">
+                            <span class="lang-id">Melayani transaksi pelanggan grosir (B2B), manajemen kas harian, dan memastikan integritas data keuangan pada setiap transaksi.</span>
+                            <span class="lang-en">Serving wholesale (B2B) customer transactions, managing daily cash flow, and ensuring financial data integrity for every transaction.</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Keahlian Strategis (Diperbarui sesuai Easter Egg) -->
+        <section id="skills" class="py-28 px-6 bg-slate-50 dark:bg-slate-950">
+            <div class="max-w-6xl mx-auto text-center">
+                <h2 class="text-3xl font-bold mb-16 flex items-center justify-center gap-4 text-center">
+                    <span class="p-2 bg-emerald-500 rounded-lg text-white"><i data-lucide="zap"></i></span>
+                    <span class="lang-id">Keahlian Strategis</span><span class="lang-en">Strategic Skills</span>
+                </h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 text-left">
+                    <!-- Data Science -->
+                    <div onclick="openSkillModal('science')" class="skill-card p-8 rounded-[2rem] bg-white dark:bg-slate-900 shadow-sm border border-slate-200 dark:border-slate-800">
+                        <div class="p-4 bg-blue-100 dark:bg-blue-900/30 w-fit rounded-2xl mb-6 text-blue-600"><i data-lucide="microscope" class="w-9 h-9"></i></div>
+                        <h4 class="font-black text-xl mb-3 uppercase tracking-tighter">Data Science</h4>
+                        <p class="text-slate-500 text-sm leading-relaxed lang-id">Eksplorasi algoritma dan statistika tingkat lanjut di Universitas Terbuka.</p>
+                        <p class="text-slate-500 text-sm leading-relaxed lang-en">Algorithm exploration and advanced statistics at Universitas Terbuka.</p>
+                    </div>
+                    <!-- Accounting -->
+                    <div onclick="openSkillModal('finance')" class="skill-card p-8 rounded-[2rem] bg-white dark:bg-slate-900 shadow-sm border border-slate-200 dark:border-slate-800">
+                        <div class="p-4 bg-purple-100 dark:bg-purple-900/30 w-fit rounded-2xl mb-6 text-purple-600"><i data-lucide="landmark" class="w-9 h-9"></i></div>
+                        <h4 class="font-black text-xl mb-3 uppercase tracking-tighter">Accounting</h4>
+                        <p class="text-slate-500 text-sm leading-relaxed lang-id">Integritas data keuangan dan akurasi angka berbasis standar SMK Negeri 1.</p>
+                        <p class="text-slate-500 text-sm leading-relaxed lang-en">Financial data integrity and numerical accuracy based on vocational standards.</p>
+                    </div>
+                    <!-- Inventory Mgt -->
+                    <div onclick="openSkillModal('inventory')" class="skill-card p-8 rounded-[2rem] bg-white dark:bg-slate-900 shadow-sm border border-slate-200 dark:border-slate-800">
+                        <div class="p-4 bg-orange-100 dark:bg-orange-900/30 w-fit rounded-2xl mb-6 text-orange-600"><i data-lucide="boxes" class="w-9 h-9"></i></div>
+                        <h4 class="font-black text-xl mb-3 uppercase tracking-tighter">Inventory Mgt</h4>
+                        <p class="text-slate-500 text-sm leading-relaxed lang-id">Kontrol akurasi stok fisik vs sistem dalam skala distribusi retail nasional.</p>
+                        <p class="text-slate-500 text-sm leading-relaxed lang-en">Physical vs system stock accuracy control in national retail distribution.</p>
+                    </div>
+                    <!-- Spreadsheets -->
+                    <div onclick="openSkillModal('spreadsheet')" class="skill-card p-8 rounded-[2rem] bg-white dark:bg-slate-900 shadow-sm border border-slate-200 dark:border-slate-800">
+                        <div class="p-4 bg-emerald-100 dark:bg-emerald-900/30 w-fit rounded-2xl mb-6 text-emerald-600"><i data-lucide="file-spreadsheet" class="w-9 h-9"></i></div>
+                        <h4 class="font-black text-xl mb-3 uppercase tracking-tighter">Spreadsheets</h4>
+                        <p class="text-slate-500 text-sm leading-relaxed lang-id">Formula kompleks, Power Query, dan automasi dasbor pelaporan dinamis.</p>
+                        <p class="text-slate-500 text-sm leading-relaxed lang-en">Complex formulas, Power Query, and dynamic report dashboard automation.</p>
+                    </div>
+                    <!-- Coding -->
+                    <div onclick="openSkillModal('coding')" class="skill-card p-8 rounded-[2rem] bg-white dark:bg-slate-900 shadow-sm border border-slate-200 dark:border-slate-800">
+                        <div class="p-4 bg-cyan-100 dark:bg-cyan-900/30 w-fit rounded-2xl mb-6 text-cyan-600"><i data-lucide="code" class="w-9 h-9"></i></div>
+                        <h4 class="font-black text-xl mb-3 uppercase tracking-tighter">Coding</h4>
+                        <p class="text-slate-500 text-sm leading-relaxed lang-id">Web development mandiri menggunakan HTML, Tailwind CSS, dan JavaScript.</p>
+                        <p class="text-slate-500 text-sm leading-relaxed lang-en">Self-built web development using HTML, Tailwind CSS, and JavaScript.</p>
+                    </div>
+                    <!-- Analysis -->
+                    <div onclick="openSkillModal('analysis')" class="skill-card p-8 rounded-[2rem] bg-white dark:bg-slate-900 shadow-sm border border-slate-200 dark:border-slate-800">
+                        <div class="p-4 bg-blue-100 dark:bg-blue-900/30 w-fit rounded-2xl mb-6 text-blue-600"><i data-lucide="bar-chart-3" class="w-9 h-9"></i></div>
+                        <h4 class="font-black text-xl mb-3 uppercase tracking-tighter">Data Analysis</h4>
+                        <p class="text-slate-500 text-sm leading-relaxed lang-id">Interpretasi tren operasional dan pembersihan database (cleaning).</p>
+                        <p class="text-slate-500 text-sm leading-relaxed lang-en">Operational trend interpretation and database cleaning specialist.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer id="contact" class="py-20 bg-slate-900 text-white text-center">
+            <div class="max-w-3xl mx-auto px-6">
+                <h2 class="text-4xl font-black mb-12 italic uppercase tracking-tighter">Connect with Me</h2>
+                <div class="flex flex-col md:flex-row justify-center items-center gap-12">
+                    <a href="mailto:cjansouw007@gmail.com" class="flex items-center gap-4 group">
+                        <div class="p-5 bg-slate-800 rounded-full group-hover:bg-blue-600 transition"><i data-lucide="mail" class="w-8 h-8"></i></div>
+                        <span class="font-black tracking-widest text-sm uppercase">cjansouw007@gmail.com</span>
+                    </a>
+                    <a href="https://wa.me/62895415369827" target="_blank" class="flex items-center gap-4 group">
+                        <div class="p-5 bg-slate-800 rounded-full group-hover:bg-green-600 transition"><i data-lucide="phone" class="w-8 h-8"></i></div>
+                        <span class="font-black tracking-widest text-sm uppercase">+62 895 4153 69827</span>
+                    </a>
+                </div>
+                <p class="mt-20 text-slate-500 text-[10px] uppercase tracking-[0.6em] font-black italic">© 2025 BIENTANG CAREL JOSEP ANSOUW</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- VIEW 2: STATS DASHBOARD (Easter Egg) -->
+    <div id="stats-view" class="hidden min-h-screen w-full bg-slate-950 text-white flex flex-col page-transition">
+        <nav class="w-full px-8 py-6 border-b border-white/5 flex justify-between items-center glass-morphism sticky top-0 z-[60]">
+            <div class="text-xl font-black tracking-tighter gradient-text">CJ INTEL DASHBOARD v2.0</div>
+            <button onclick="navigateTo('main')" class="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 px-5 py-2.5 rounded-2xl transition-all font-black text-[10px] uppercase shadow-lg shadow-blue-500/20">
+                <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                <span class="lang-id">Kembali</span><span class="lang-en">Back</span>
+            </button>
+        </nav>
+        <main class="flex-grow flex flex-col items-center justify-center p-8 md:p-16">
+            <div class="max-w-6xl w-full grid lg:grid-cols-12 gap-16 items-center">
+                <div class="lg:col-span-7 bg-slate-900/60 p-10 rounded-[4rem] border border-white/5 shadow-3xl relative overflow-hidden group text-center">
+                    <div class="relative h-[400px] md:h-[550px] w-full">
+                        <canvas id="skillRadarChart"></canvas>
+                    </div>
+                </div>
+                <div class="lg:col-span-5 space-y-12 text-left">
+                    <h2 class="text-5xl font-black mb-6 uppercase tracking-tighter italic leading-tight">Mastery <br><span class="gradient-text">Visualization</span></h2>
+                    <p class="text-slate-400 text-lg">Statistical mapping validated by operational experience and Data Science academia.</p>
+                    <div class="grid grid-cols-2 gap-6 text-center">
+                        <div class="p-8 rounded-[2rem] bg-white/5 border border-white/5"><div class="text-4xl font-black text-blue-500 mb-2">95%</div><div class="text-[10px] uppercase tracking-widest text-slate-500 font-bold">Accuracy</div></div>
+                        <div class="p-8 rounded-[2rem] bg-white/5 border border-white/5"><div class="text-4xl font-black text-purple-500 mb-2">82%</div><div class="text-[10px] uppercase tracking-widest text-slate-500 font-bold">Efficiency</div></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- SKILL DETAIL MODAL -->
+    <div id="modal-overlay" class="fixed inset-0 z-[70] bg-slate-950/80 backdrop-blur-md hidden items-center justify-center p-6 no-print">
+        <div class="bg-white dark:bg-slate-900 w-full max-w-xl rounded-[3rem] overflow-hidden shadow-3xl page-transition">
+            <div class="p-10">
+                <div id="modal-icon-container" class="p-5 rounded-3xl shadow-lg w-fit mb-10"></div>
+                <h3 id="modal-title" class="text-4xl font-black mb-6 italic tracking-tight uppercase"></h3>
+                <div id="modal-content" class="text-slate-600 dark:text-slate-400 leading-relaxed text-lg font-medium"></div>
+            </div>
+            <div class="p-8 bg-slate-50 dark:bg-slate-800/50 flex justify-end">
+                <button onclick="closeSkillModal()" class="bg-slate-900 dark:bg-white dark:text-slate-900 text-white px-10 py-4 rounded-2xl font-black uppercase text-sm">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        // Skill Modal Data - Synced with Radar Axes
+        const skillData = {
+            science: {
+                title: "Data Science",
+                icon: "microscope",
+                colorClass: "bg-blue-100 dark:bg-blue-900/30 text-blue-600",
+                id: `Mempelajari fondasi machine learning, pemodelan statistik, dan pengolahan dataset besar di Universitas Terbuka untuk memecahkan masalah bisnis nyata.`,
+                en: `Studying machine learning foundations, statistical modeling, and large dataset processing at Universitas Terbuka to solve real business problems.`
+            },
+            finance: {
+                title: "Accounting",
+                icon: "landmark",
+                colorClass: "bg-purple-100 dark:bg-purple-900/30 text-purple-600",
+                id: `Kemampuan mengelola pembukuan, rekonsiliasi keuangan, dan pemastian integritas angka yang didapat dari latar belakang pendidikan Akuntansi formal.`,
+                en: `Ability to manage bookkeeping, financial reconciliation, and ensuring numerical integrity derived from a formal Accounting background.`
+            },
+            inventory: {
+                title: "Inventory Mgt",
+                icon: "boxes",
+                colorClass: "bg-orange-100 dark:bg-orange-900/30 text-orange-600",
+                id: `Keahlian dalam manajemen siklus stok gudang (DC), koordinasi stok opname, dan meminimalkan selisih (loss) melalui sinkronisasi data fisik vs sistem.`,
+                en: `Expertise in warehouse cycle management (DC), stock counting coordination, and minimizing shrinkage (loss) through physical vs system synchronization.`
+            },
+            spreadsheet: {
+                title: "Spreadsheets",
+                icon: "file-spreadsheet",
+                colorClass: "bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600",
+                id: `Penguasaan Excel/Google Sheets tingkat lanjut meliputi Power Query, formula kompleks, dan pembangunan dashboard reporting otomatis yang efisien.`,
+                en: `Advanced Excel/Google Sheets mastery including Power Query, complex formulas, and building efficient automated reporting dashboards.`
+            },
+            coding: {
+                title: "Coding",
+                icon: "code",
+                colorClass: "bg-cyan-100 dark:bg-cyan-900/30 text-cyan-600",
+                id: `Kemampuan membangun solusi digital berbasis web menggunakan HTML, Tailwind CSS, dan JavaScript. Portfolio ini dibangun secara mandiri menggunakan kode murni.`,
+                en: `Ability to build web-based digital solutions using HTML, Tailwind CSS, and JavaScript. This portfolio was built independently using pure code.`
+            },
+            analysis: {
+                title: "Data Analysis",
+                icon: "bar-chart-3",
+                colorClass: "bg-blue-100 dark:bg-blue-900/30 text-blue-600",
+                id: `Melakukan ekstraksi informasi dari data operasional mentah, pembersihan data (cleaning), serta visualisasi tren untuk membantu pengambilan keputusan.`,
+                en: `Extracting information from raw operational data, performing data cleaning, and visualizing trends to support decision-making.`
+            }
+        };
+
+        // Live Clock & Dynamic Greeting Engine
+        function updateClock() {
+            const now = new Date();
+            const hour = now.getHours();
+            const lang = document.documentElement.getAttribute('lang') || 'id';
+            
+            const timeString = now.toLocaleTimeString('id-ID', { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            document.getElementById('live-time').innerText = timeString;
+
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('live-date').innerText = now.toLocaleDateString(lang === 'id' ? 'id-ID' : 'en-US', options);
+
+            let greetId = ""; let greetEn = "";
+            if (hour >= 4 && hour < 11) { greetId = "Selamat Pagi"; greetEn = "Good Morning"; }
+            else if (hour >= 11 && hour < 15) { greetId = "Selamat Siang"; greetEn = "Good Afternoon"; }
+            else if (hour >= 15 && hour < 19) { greetId = "Selamat Sore"; greetEn = "Good Evening"; }
+            else { greetId = "Selamat Malam"; greetEn = "Good Night"; }
+
+            document.getElementById('greeting-id').innerText = greetId;
+            document.getElementById('greeting-en').innerText = greetEn;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // SPA Navigation
+        let skillChartInstance = null;
+        function navigateTo(view) {
+            const main = document.getElementById('main-view');
+            const stats = document.getElementById('stats-view');
+            if (view === 'stats') {
+                main.classList.add('hidden');
+                stats.classList.remove('hidden');
+                setTimeout(renderSkillRadar, 150);
+            } else {
+                stats.classList.add('hidden');
+                main.classList.remove('hidden');
+            }
+            lucide.createIcons();
+            window.scrollTo(0,0);
+        }
+
+        function renderSkillRadar() {
+            const ctx = document.getElementById('skillRadarChart').getContext('2d');
+            if (skillChartInstance) skillChartInstance.destroy();
+            skillChartInstance = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: ['Data Science', 'Accounting', 'Inventory Mgt', 'Spreadsheets', 'Coding', 'Analysis'],
+                    datasets: [{
+                        label: 'CJ Skill Profile',
+                        data: [75, 90, 96, 94, 80, 88],
+                        fill: true,
+                        backgroundColor: 'rgba(59, 130, 246, 0.2)',
+                        borderColor: '#3b82f6',
+                        pointBackgroundColor: '#3b82f6',
+                        borderWidth: 4,
+                        pointRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: { color: 'rgba(255, 255, 255, 0.15)' },
+                            grid: { color: 'rgba(255, 255, 255, 0.15)' },
+                            pointLabels: { color: '#94a3b8', font: { size: 14, weight: '900', family: 'Inter' } },
+                            ticks: { display: false },
+                            suggestedMin: 0, suggestedMax: 100
+                        }
+                    },
+                    plugins: { legend: { display: false } }
+                }
+            });
+        }
+
+        function openSkillModal(key) {
+            const data = skillData[key];
+            if (!data) return;
+            const modal = document.getElementById('modal-overlay');
+            const lang = document.documentElement.getAttribute('lang') || 'id';
+            document.getElementById('modal-title').innerText = data.title;
+            document.getElementById('modal-content').innerText = data[lang];
+            const container = document.getElementById('modal-icon-container');
+            container.className = `p-5 rounded-3xl shadow-lg ${data.colorClass}`;
+            container.innerHTML = `<i data-lucide="${data.icon}" class="w-10 h-10"></i>`;
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            lucide.createIcons();
+        }
+
+        function closeSkillModal() {
+            document.getElementById('modal-overlay').classList.add('hidden');
+            document.getElementById('modal-overlay').classList.remove('flex');
+        }
+
+        // Logic Toggle
+        document.getElementById('theme-toggle').addEventListener('click', () => {
+            const html = document.documentElement;
+            html.classList.toggle('dark');
+            localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+            const themeIcon = document.getElementById('theme-icon');
+            themeIcon.setAttribute('data-lucide', html.classList.contains('dark') ? 'sun' : 'moon');
+            lucide.createIcons();
+        });
+
+        document.getElementById('lang-toggle').addEventListener('click', () => {
+            const html = document.documentElement;
+            const target = html.getAttribute('lang') === 'id' ? 'en' : 'id';
+            html.setAttribute('lang', target);
+            localStorage.setItem('lang', target);
+            updateClock();
+        });
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+            }
+            const savedLang = localStorage.getItem('lang');
+            if (savedLang) document.documentElement.setAttribute('lang', savedLang);
+            const themeIcon = document.getElementById('theme-icon');
+            themeIcon.setAttribute('data-lucide', document.documentElement.classList.contains('dark') ? 'sun' : 'moon');
+            lucide.createIcons();
+        });
+    </script>
+</body>
+</html>
