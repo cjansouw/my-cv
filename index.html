@@ -147,7 +147,9 @@
                     </div>
                 </div>
                 <h1 class="text-5xl md:text-7xl font-black mb-6 leading-tight">
-                    <span class="lang-id" id="greeting-id">Halo</span><span class="lang-en" id="greeting-en">Hello</span>, Saya 
+                    <!-- Perbaikan Bahasa pada Sapaan -->
+                    <span class="lang-id"><span id="greeting-id">Halo</span>, Saya</span>
+                    <span class="lang-en"><span id="greeting-en">Hello</span>, I'm</span> 
                     <br>
                     <span class="gradient-text">Bientang Carel Josep Ansouw</span>
                 </h1>
@@ -209,7 +211,6 @@
                     <span class="lang-id">Pengalaman Profesional</span><span class="lang-en">Professional Experience</span>
                 </h2>
                 <div class="space-y-16">
-                    <!-- PT Indomarco -->
                     <div class="relative pl-10 border-l-2 border-blue-500">
                         <div class="absolute -left-[11px] top-0 w-5 h-5 bg-blue-500 rounded-full shadow-[0_0_10px_rgba(59,130,246,0.5)]"></div>
                         <div class="mb-2 text-sm font-black text-blue-600 uppercase tracking-widest">2023 - Sekarang</div>
@@ -221,7 +222,6 @@
                             <span class="lang-en">Managing daily stock data validation, coordinating strategic reports between departments, and optimizing inventory control systems to ensure central warehouse accuracy.</span>
                         </p>
                     </div>
-                    <!-- Admin Reporting -->
                     <div class="relative pl-10 border-l-2 border-slate-300 dark:border-slate-700">
                         <div class="absolute -left-[11px] top-0 w-5 h-5 bg-slate-300 dark:bg-slate-700 rounded-full"></div>
                         <div class="mb-2 text-sm font-black text-slate-500 uppercase tracking-widest">Nov 2022 - Nov 2023</div>
@@ -232,7 +232,6 @@
                             <span class="lang-en">Digitalizing operational documents, compiling distribution performance reports, and monitoring logistics KPIs on a regular basis.</span>
                         </p>
                     </div>
-                    <!-- Lotte -->
                     <div class="relative pl-10 border-l-2 border-slate-300 dark:border-slate-700">
                         <div class="absolute -left-[11px] top-0 w-5 h-5 bg-slate-300 dark:bg-slate-700 rounded-full"></div>
                         <div class="mb-2 text-sm font-black text-slate-500 uppercase tracking-widest">Feb 2022 - Agt 2022</div>
@@ -280,36 +279,42 @@
                     <span class="lang-id">Keahlian Strategis</span><span class="lang-en">Strategic Skills</span>
                 </h2>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 text-left">
+                    <!-- Skill 1 -->
                     <div onclick="openSkillModal('science')" class="skill-card p-8 rounded-[2rem] bg-white dark:bg-slate-900 shadow-sm border border-slate-200 dark:border-slate-800">
                         <div class="p-4 bg-blue-100 dark:bg-blue-900/30 w-fit rounded-2xl mb-6 text-blue-600"><i data-lucide="microscope" class="w-9 h-9"></i></div>
                         <h4 class="font-black text-xl mb-3 uppercase tracking-tighter italic">Data Science</h4>
                         <p class="text-slate-500 text-sm leading-relaxed lang-id">Mempelajari algoritma dan pengolahan dataset besar untuk solusi bisnis.</p>
                         <p class="text-slate-500 text-sm leading-relaxed lang-en">Learning algorithms and big dataset processing for business solutions.</p>
                     </div>
+                    <!-- Skill 2 -->
                     <div onclick="openSkillModal('finance')" class="skill-card p-8 rounded-[2rem] bg-white dark:bg-slate-900 shadow-sm border border-slate-200 dark:border-slate-800">
                         <div class="p-4 bg-purple-100 dark:bg-purple-900/30 w-fit rounded-2xl mb-6 text-purple-600"><i data-lucide="landmark" class="w-9 h-9"></i></div>
                         <h4 class="font-black text-xl mb-3 uppercase tracking-tighter italic">Accounting</h4>
                         <p class="text-slate-500 text-sm leading-relaxed lang-id">Pemastian integritas angka dan kepatuhan standar laporan keuangan.</p>
                         <p class="text-slate-500 text-sm leading-relaxed lang-en">Ensuring numerical integrity and financial reporting standards compliance.</p>
                     </div>
+                    <!-- Skill 3 -->
                     <div onclick="openSkillModal('inventory')" class="skill-card p-8 rounded-[2rem] bg-white dark:bg-slate-900 shadow-sm border border-slate-200 dark:border-slate-800">
                         <div class="p-4 bg-orange-100 dark:bg-orange-900/30 w-fit rounded-2xl mb-6 text-orange-600"><i data-lucide="boxes" class="w-9 h-9"></i></div>
                         <h4 class="font-black text-xl mb-3 uppercase tracking-tighter italic">Inventory Mgt</h4>
                         <p class="text-slate-500 text-sm leading-relaxed lang-id">Kontrol stok fisik vs sistem dalam skala distribusi retail nasional.</p>
                         <p class="text-slate-500 text-sm leading-relaxed lang-en">Physical vs system stock control in national retail distribution.</p>
                     </div>
+                    <!-- Skill 4 -->
                     <div onclick="openSkillModal('spreadsheet')" class="skill-card p-8 rounded-[2rem] bg-white dark:bg-slate-900 shadow-sm border border-slate-200 dark:border-slate-800">
                         <div class="p-4 bg-emerald-100 dark:bg-emerald-900/30 w-fit rounded-2xl mb-6 text-emerald-600"><i data-lucide="file-spreadsheet" class="w-9 h-9"></i></div>
                         <h4 class="font-black text-xl mb-3 uppercase tracking-tighter italic">Spreadsheets</h4>
                         <p class="text-slate-500 text-sm leading-relaxed lang-id">Mastery Power Query dan formula kompleks untuk automasi laporan.</p>
                         <p class="text-slate-500 text-sm leading-relaxed lang-en">Power Query mastery and complex formulas for report automation.</p>
                     </div>
+                    <!-- Skill 5 -->
                     <div onclick="openSkillModal('coding')" class="skill-card p-8 rounded-[2rem] bg-white dark:bg-slate-900 shadow-sm border border-slate-200 dark:border-slate-800">
                         <div class="p-4 bg-cyan-100 dark:bg-cyan-900/30 w-fit rounded-2xl mb-6 text-cyan-600"><i data-lucide="code" class="w-9 h-9"></i></div>
                         <h4 class="font-black text-xl mb-3 uppercase tracking-tighter italic">Coding</h4>
                         <p class="text-slate-500 text-sm leading-relaxed lang-id">Membangun antarmuka web modern menggunakan HTML, Tailwind, dan JS.</p>
                         <p class="text-slate-500 text-sm leading-relaxed lang-en">Building modern web interfaces using HTML, Tailwind, and JS.</p>
                     </div>
+                    <!-- Skill 6 -->
                     <div onclick="openSkillModal('analysis')" class="skill-card p-8 rounded-[2rem] bg-white dark:bg-slate-900 shadow-sm border border-slate-200 dark:border-slate-800">
                         <div class="p-4 bg-blue-100 dark:bg-blue-900/30 w-fit rounded-2xl mb-6 text-blue-600"><i data-lucide="bar-chart-3" class="w-9 h-9"></i></div>
                         <h4 class="font-black text-xl mb-3 uppercase tracking-tighter italic">Data Analysis</h4>
@@ -367,7 +372,7 @@
         </main>
     </div>
 
-    <!-- SKILL MODAL -->
+    <!-- SKILL DETAIL MODAL -->
     <div id="modal-overlay" class="fixed inset-0 z-[70] bg-slate-950/80 backdrop-blur-md hidden items-center justify-center p-6 no-print">
         <div class="bg-white dark:bg-slate-900 w-full max-w-xl rounded-[3rem] overflow-hidden shadow-3xl page-transition">
             <div class="p-10 text-left">
@@ -430,20 +435,43 @@
             }
         };
 
-        // Live Clock & Greeting
+        // Live Clock & Dynamic Greeting
         function updateClock() {
             const now = new Date();
             const hour = now.getHours();
             const lang = document.documentElement.getAttribute('lang') || 'id';
             
-            document.getElementById('live-time').innerText = now.toLocaleTimeString('id-ID', { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' });
-            document.getElementById('live-date').innerText = now.toLocaleDateString(lang === 'id' ? 'id-ID' : 'en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+            // Format Waktu
+            const timeString = now.toLocaleTimeString('id-ID', { 
+                hour12: false, 
+                hour: '2-digit', 
+                minute: '2-digit', 
+                second: '2-digit' 
+            });
+            document.getElementById('live-time').innerText = timeString;
 
-            let greetId = ""; let greetEn = "";
-            if (hour >= 4 && hour < 11) { greetId = "Selamat Pagi"; greetEn = "Good Morning"; }
-            else if (hour >= 11 && hour < 15) { greetId = "Selamat Siang"; greetEn = "Good Afternoon"; }
-            else if (hour >= 15 && hour < 19) { greetId = "Selamat Sore"; greetEn = "Good Evening"; }
-            else { greetId = "Selamat Malam"; greetEn = "Good Night"; }
+            // Format Tanggal
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const dateString = now.toLocaleDateString(lang === 'id' ? 'id-ID' : 'en-US', options);
+            document.getElementById('live-date').innerText = dateString;
+
+            // Dynamic Greeting Logic
+            let greetId = "";
+            let greetEn = "";
+
+            if (hour >= 4 && hour < 11) {
+                greetId = "Selamat Pagi";
+                greetEn = "Good Morning";
+            } else if (hour >= 11 && hour < 15) {
+                greetId = "Selamat Siang";
+                greetEn = "Good Afternoon";
+            } else if (hour >= 15 && hour < 19) {
+                greetId = "Selamat Sore";
+                greetEn = "Good Evening";
+            } else {
+                greetId = "Selamat Malam";
+                greetEn = "Good Night";
+            }
 
             document.getElementById('greeting-id').innerText = greetId;
             document.getElementById('greeting-en').innerText = greetEn;
